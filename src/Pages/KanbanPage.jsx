@@ -151,6 +151,77 @@ function KanbanPage() {
 		},
 
 		// Other announcement functions...
+		onDragOver({ active, over }) {
+			if (!hasDraggableData(active) || !hasDraggableData(over)) return;
+
+			if (
+				active.data.current?.type === 'Column' &&
+				over.data.current?.type === 'Column'
+			) {
+				const overColumnIdx = columnsId.findIndex((id) => id === over.id);
+				return `Column ${active.data.current.column.title} was moved over ${
+					over.data.current.column.title
+				} at position ${overColumnIdx + 1} of ${columnsId.length}`;
+			} else if (
+				active.data.current?.type === 'Task' &&
+				over.data.current?.type === 'Task'
+			) {
+				const { tasksInColumn, taskPosition, column } = getDraggingTaskData(
+					over.id,
+					over.data.current.task.columnId
+				);
+				if (over.data.current.task.columnId !== pickedUpTaskColumn.current) {
+					return `Task ${
+						active.data.current.task.content
+					} was moved over column ${column?.title} in position ${
+						taskPosition + 1
+					} of ${tasksInColumn.length}`;
+				}
+				return `Task was moved over position ${taskPosition + 1} of ${
+					tasksInColumn.length
+				} in column ${column?.title}`;
+			}
+		},
+		onDragEnd({ active, over }) {
+			if (!hasDraggableData(active) || !hasDraggableData(over)) {
+				pickedUpTaskColumn.current = null;
+				return;
+			}
+			if (
+				active.data.current?.type === 'Column' &&
+				over.data.current?.type === 'Column'
+			) {
+				const overColumnPosition = columnsId.findIndex((id) => id === over.id);
+
+				return `Column ${
+					active.data.current.column.title
+				} was dropped into position ${overColumnPosition + 1} of ${
+					columnsId.length
+				}`;
+			} else if (
+				active.data.current?.type === 'Task' &&
+				over.data.current?.type === 'Task'
+			) {
+				const { tasksInColumn, taskPosition, column } = getDraggingTaskData(
+					over.id,
+					over.data.current.task.columnId
+				);
+				if (over.data.current.task.columnId !== pickedUpTaskColumn.current) {
+					return `Task was dropped into column ${column?.title} in position ${
+						taskPosition + 1
+					} of ${tasksInColumn.length}`;
+				}
+				return `Task was dropped into position ${taskPosition + 1} of ${
+					tasksInColumn.length
+				} in column ${column?.title}`;
+			}
+			pickedUpTaskColumn.current = null;
+		},
+		onDragCancel({ active }) {
+			pickedUpTaskColumn.current = null;
+			if (!hasDraggableData(active)) return;
+			return `Dragging ${active.data.current?.type} cancelled.`;
+		},
 	};
 
 	function onDragStart(event) {
@@ -194,7 +265,26 @@ function KanbanPage() {
 	}
 
 	function onDragOver(event) {
-		// Drag over logic...
+		const { active, over } = event;
+		if (!active || !over) return;
+
+		const activeId = active.id;
+		const overId = over.id;
+
+		if (!hasDraggableData(active)) return;
+
+		const activeData = active.data.current;
+
+		if (activeId === overId) return;
+
+		const isActiveAColumn = activeData?.type === 'Column';
+		if (!isActiveAColumn) return;
+
+		setColumns((columns) => {
+			const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
+			const overColumnIndex = columns.findIndex((col) => col.id === overId);
+			return arrayMove(columns, activeColumnIndex, overColumnIndex);
+		});
 	}
 
 	return (
