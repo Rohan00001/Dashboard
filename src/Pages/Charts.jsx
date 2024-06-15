@@ -1,6 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -11,6 +18,18 @@ import {
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
+import { SlGraph } from 'react-icons/sl';
+import { FaChartPie } from 'react-icons/fa';
+import { IoBarChartSharp } from 'react-icons/io5';
 
 function Charts() {
 	const lineChartRef = useRef(null);
@@ -76,14 +95,11 @@ function Charts() {
 							'July',
 							'August',
 							'September',
-							'October',
-							'November',
-							'December',
 						],
 						datasets: [
 							{
 								label: '# of Votes',
-								data: [10, 20, 15, 25, 35, 30, 20, 10, 15, 20, 25, 30],
+								data: [10, 20, 15, 25, 35, 30, 20, 10, 15],
 								backgroundColor: [
 									'red',
 									'blue',
@@ -94,9 +110,6 @@ function Charts() {
 									'pink',
 									'brown',
 									'gray',
-									'black',
-									'cyan',
-									'magenta',
 								],
 							},
 						],
@@ -189,7 +202,7 @@ function Charts() {
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
 							<BreadcrumbLink asChild>
-								<Link to='#'>Calendar</Link>
+								<Link to='#'>charts</Link>
 							</BreadcrumbLink>
 						</BreadcrumbItem>
 					</BreadcrumbList>
@@ -203,33 +216,109 @@ function Charts() {
 					/>
 				</div>
 			</header>
-			<main className='grid gap-4 sm:grid-cols-2'>
-				<Card>
-					<CardHeader>
-						<CardTitle>Line Chart</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<canvas ref={lineChartRef}></canvas>
-					</CardContent>
-				</Card>
+			<div className='p-6'>
+				{/* Page Header */}
+				<header className='mb-6'>
+					<h1 className='text-3xl font-bold mb-2'>Charts</h1>
+					<p className='text-gray-600'>
+						Overview of various data visualizations
+					</p>
+				</header>
 
-				<Card>
-					<CardHeader>
-						<CardTitle>Bar Chart</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<canvas ref={barChartRef}></canvas>
-					</CardContent>
-				</Card>
-				<Card>
-					<CardHeader>
-						<CardTitle>Pie Chart</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<canvas ref={pieChartRef}></canvas>
-					</CardContent>
-				</Card>
-			</main>
+				{/* Filter Section */}
+				<section className='mb-6'>
+					<div className='flex items-center space-x-4'>
+						<div>
+							<Select>
+								<SelectTrigger className='w-[180px]'>
+									<SelectValue placeholder='Date Range' />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Date Range</SelectLabel>
+										<SelectItem value='apple'>Last 7 days</SelectItem>
+										<SelectItem value='banana'>Last 30 days</SelectItem>
+										<SelectItem value='blueberry'>Last 90 days</SelectItem>
+									</SelectGroup>
+								</SelectContent>
+							</Select>
+						</div>
+					</div>
+				</section>
+
+				{/* Summary Statistics */}
+				<section className='mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+					<Card className='w-[350px]'>
+						<CardHeader>
+							<CardTitle>Total Sales</CardTitle>
+						</CardHeader>
+						<CardContent>$12,345</CardContent>
+					</Card>
+
+					<Card className='w-[350px]'>
+						<CardHeader>
+							<CardTitle>New Users</CardTitle>
+						</CardHeader>
+						<CardContent>1,234</CardContent>
+					</Card>
+
+					<Card className='w-[350px]'>
+						<CardHeader>
+							<CardTitle>Bounce Rate</CardTitle>
+						</CardHeader>
+						<CardContent>12.34%</CardContent>
+					</Card>
+				</section>
+
+				{/* Charts Section */}
+				<main className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+					<Card className='shadow-lg rounded-lg overflow-hidden'>
+						<CardHeader className='bg-gradient-to-r from-blue-500 to-purple-600 text-white flex items-center justify-between p-4'>
+							<div>
+								<CardTitle className='text-xl font-semibold'>
+									Line Chart
+								</CardTitle>
+								<p className='text-sm text-gray-200'>Trends over time</p>
+							</div>
+							<SlGraph />
+						</CardHeader>
+						<CardContent className='p-4'>
+							<canvas ref={lineChartRef}></canvas>
+						</CardContent>
+					</Card>
+
+					<Card className='shadow-lg rounded-lg overflow-hidden'>
+						<CardHeader className='bg-gradient-to-r from-green-500 to-teal-600 text-white flex items-center justify-between p-4'>
+							<div>
+								<CardTitle className='text-xl font-semibold'>
+									Bar Chart
+								</CardTitle>
+								<p className='text-sm text-gray-200'>Comparative analysis</p>
+							</div>
+
+							<IoBarChartSharp />
+						</CardHeader>
+						<CardContent className='p-4'>
+							<canvas ref={barChartRef}></canvas>
+						</CardContent>
+					</Card>
+
+					<Card className='shadow-lg rounded-lg overflow-hidden'>
+						<CardHeader className='bg-gradient-to-r from-red-500 to-pink-600 text-white flex items-center justify-between p-4'>
+							<div>
+								<CardTitle className='text-xl font-semibold'>
+									Pie Chart
+								</CardTitle>
+								<p className='text-sm text-gray-200'>Proportional data</p>
+							</div>
+							<FaChartPie />
+						</CardHeader>
+						<CardContent className='flex items-center justify-center h-96 p-4'>
+							<canvas ref={pieChartRef}></canvas>
+						</CardContent>
+					</Card>
+				</main>
+			</div>
 		</div>
 	);
 }

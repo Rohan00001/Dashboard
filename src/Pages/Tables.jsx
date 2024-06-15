@@ -60,6 +60,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { FaRegUser } from 'react-icons/fa';
 
 function Tables() {
 	return (
@@ -189,13 +190,7 @@ function Tables() {
 										<TableBody>
 											<TableRow>
 												<TableCell className='hidden sm:table-cell'>
-													<Image
-														alt='Product image'
-														className='aspect-square rounded-md object-cover'
-														height='64'
-														src='/placeholder.svg'
-														width='64'
-													/>
+													<FaRegUser className='h-10 w-10 text-gray-400' />
 												</TableCell>
 												<TableCell className='font-medium'>
 													Laser Lemonade Machine
@@ -234,13 +229,7 @@ function Tables() {
 											</TableRow>
 											<TableRow>
 												<TableCell className='hidden sm:table-cell'>
-													<Image
-														alt='Product image'
-														className='aspect-square rounded-md object-cover'
-														height='64'
-														src='/placeholder.svg'
-														width='64'
-													/>
+													<FaRegUser className='h-10 w-10 text-gray-400' />
 												</TableCell>
 												<TableCell className='font-medium'>
 													Hypernova Headphones
@@ -279,13 +268,7 @@ function Tables() {
 											</TableRow>
 											<TableRow>
 												<TableCell className='hidden sm:table-cell'>
-													<Image
-														alt='Product image'
-														className='aspect-square rounded-md object-cover'
-														height='64'
-														src='/placeholder.svg'
-														width='64'
-													/>
+													<FaRegUser className='h-10 w-10 text-gray-400' />
 												</TableCell>
 												<TableCell className='font-medium'>
 													AeroGlow Desk Lamp
@@ -324,13 +307,7 @@ function Tables() {
 											</TableRow>
 											<TableRow>
 												<TableCell className='hidden sm:table-cell'>
-													<Image
-														alt='Product image'
-														className='aspect-square rounded-md object-cover'
-														height='64'
-														src='/placeholder.svg'
-														width='64'
-													/>
+													<FaRegUser className='h-10 w-10 text-gray-400' />
 												</TableCell>
 												<TableCell className='font-medium'>
 													TechTonic Energy Drink
@@ -369,13 +346,7 @@ function Tables() {
 											</TableRow>
 											<TableRow>
 												<TableCell className='hidden sm:table-cell'>
-													<Image
-														alt='Product image'
-														className='aspect-square rounded-md object-cover'
-														height='64'
-														src='/placeholder.svg'
-														width='64'
-													/>
+													<FaRegUser className='h-10 w-10 text-gray-400' />
 												</TableCell>
 												<TableCell className='font-medium'>
 													Gamer Gear Pro Controller
@@ -414,13 +385,7 @@ function Tables() {
 											</TableRow>
 											<TableRow>
 												<TableCell className='hidden sm:table-cell'>
-													<Image
-														alt='Product image'
-														className='aspect-square rounded-md object-cover'
-														height='64'
-														src='/placeholder.svg'
-														width='64'
-													/>
+													<FaRegUser className='h-10 w-10 text-gray-400' />
 												</TableCell>
 												<TableCell className='font-medium'>
 													Luminous VR Headset

@@ -10,6 +10,7 @@ import {
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Switch } from '../ui/switch';
 import { useState } from 'react';
+import { ModeToggle } from '../mode-toggle';
 
 export function ThemeChanger() {
 	const [checked, setChecked] = useState(false);
@@ -31,15 +32,10 @@ export function ThemeChanger() {
 					<SheetTitle>Change Theme</SheetTitle>
 					<SheetDescription>Change your theme settings</SheetDescription>
 				</SheetHeader>
+
 				<div className='space-y-4 my-4'>
 					<div className='flex items-center space-x-3'>
-						<Switch
-							id='theme-changer'
-							onChange={changeTheme}
-						/>
-						<span className='text-sm text-gray-500'>
-							{checked ? 'Dark mode enabled' : 'Dark mode disabled'}
-						</span>
+						<ModeToggle />
 					</div>
 				</div>
 			</SheetContent>

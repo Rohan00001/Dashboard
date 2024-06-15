@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { ThemeChanger } from '../ThemeChanger/ThemeChanger';
+import { ModeToggle } from '../mode-toggle';
 
 const Navbar = () => {
 	return (
