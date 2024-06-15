@@ -17,6 +17,17 @@ import { hasDraggableData } from '@/components/utils';
 import { coordinateGetter } from '@/components/multipleContainersKeyboardPreset';
 import { cva } from 'class-variance-authority';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Link } from 'react-router-dom';
 
 const defaultCols = [
 	{
@@ -288,47 +299,78 @@ function KanbanPage() {
 	}
 
 	return (
-		<DndContext
-			announcements={announcements}
-			sensors={sensors}
-			onDragStart={onDragStart}
-			onDragEnd={onDragEnd}
-			onDragOver={onDragOver}
-		>
-			<BoardContainer>
-				<SortableContext items={columnsId}>
-					{columns.map((col) => (
-						<BoardColumn
-							key={col.id}
-							column={col}
-							tasks={tasks.filter((task) => task.columnId === col.id)}
-						/>
-					))}
-				</SortableContext>
-			</BoardContainer>
-
-			{'document' in window &&
-				createPortal(
-					<DragOverlay>
-						{activeColumn && (
+		<div className='flex flex-col sm:gap-4 sm:py-4 sm:pl-14'>
+			<header className='sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
+				<Breadcrumb className='hidden md:flex'>
+					<BreadcrumbList>
+						<BreadcrumbItem>
+							<BreadcrumbLink asChild>
+								<Link href='#'>Dashboard</Link>
+							</BreadcrumbLink>
+						</BreadcrumbItem>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbLink asChild>
+								<Link href='#'>Products</Link>
+							</BreadcrumbLink>
+						</BreadcrumbItem>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbPage>All Products</BreadcrumbPage>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
+				<div className='relative ml-auto flex-1 md:grow-0'>
+					<Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
+					<Input
+						type='search'
+						placeholder='Search...'
+						className='w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]'
+					/>
+				</div>
+			</header>
+			<DndContext
+				announcements={announcements}
+				sensors={sensors}
+				onDragStart={onDragStart}
+				onDragEnd={onDragEnd}
+				onDragOver={onDragOver}
+			>
+				<BoardContainer>
+					<SortableContext items={columnsId}>
+						{columns.map((col) => (
 							<BoardColumn
-								isOverlay
-								column={activeColumn}
-								tasks={tasks.filter(
-									(task) => task.columnId === activeColumn.id
-								)}
+								key={col.id}
+								column={col}
+								tasks={tasks.filter((task) => task.columnId === col.id)}
 							/>
-						)}
-						{activeTask && (
-							<TaskCard
-								task={activeTask}
-								isOverlay
-							/>
-						)}
-					</DragOverlay>,
-					document.body
-				)}
-		</DndContext>
+						))}
+					</SortableContext>
+				</BoardContainer>
+
+				{'document' in window &&
+					createPortal(
+						<DragOverlay>
+							{activeColumn && (
+								<BoardColumn
+									isOverlay
+									column={activeColumn}
+									tasks={tasks.filter(
+										(task) => task.columnId === activeColumn.id
+									)}
+								/>
+							)}
+							{activeTask && (
+								<TaskCard
+									task={activeTask}
+									isOverlay
+								/>
+							)}
+						</DragOverlay>,
+						document.body
+					)}
+			</DndContext>
+		</div>
 	);
 }
 

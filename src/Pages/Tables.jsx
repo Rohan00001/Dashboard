@@ -2,19 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
 	File,
-	Home,
-	Image,
-	LineChart,
 	ListFilter,
 	MoreHorizontal,
-	Package,
-	Package2,
-	PanelLeft,
 	PlusCircle,
 	Search,
-	Settings,
-	ShoppingCart,
-	Users2,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -44,7 +35,6 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import {
 	Table,
 	TableBody,
@@ -54,12 +44,7 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from '@/components/ui/tooltip';
+
 import { FaRegUser } from 'react-icons/fa';
 
 function Tables() {
